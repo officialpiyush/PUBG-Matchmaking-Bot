@@ -1,0 +1,5 @@
+.floo
+.flooignore
+discord.log
+cogs/__pycache__
+cogs/pubg.py
