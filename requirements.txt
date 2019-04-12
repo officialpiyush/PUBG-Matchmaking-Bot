@@ -3,4 +3,5 @@ aiohttp<3.5
 pynacl<=1.0.1
 jishaku
 wheel
-pymongo
+motor
+dnspython~=1.16.0 

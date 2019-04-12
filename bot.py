@@ -1,11 +1,12 @@
 import discord
 from discord.ext import commands
 from jishaku import Jishaku
-from pymongo import MongoClient
+from motor.motor_asyncio import AsyncIOMotorClient
+# from pymongo import MongoClient
 import logging
 
 mongoURI = "mongodb://localhost:27017/"
-dbClient = MongoClient(mongoURI)
+# dbClient = MongoClient(mongoURI)
 
 def get_prefix(bot, msg):
     prefixes = [")", "p."]
@@ -15,7 +16,7 @@ def get_prefix(bot, msg):
 bot = commands.Bot(command_prefix=get_prefix, description="A Discord Bot To Make Teams")
 bot.remove_command('help')
 
-bot.db = dbClient["pubg_bot"]
+bot.db = AsyncIOMotorClient(mongoURI).pubg_bot
 
 bot.load_extension("jishaku")
 
@@ -38,5 +39,6 @@ logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-bot.run(os.getenv('Token'))
 
+# bot.run(os.getenv('Token'))
+bot.run("NDk5MTI2MzY4NDk2NTE3MTI1.XKsrGw.Nchqu6_YKJLGX9BX0B6YrCaLtHs")
