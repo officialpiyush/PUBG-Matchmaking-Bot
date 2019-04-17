@@ -5,7 +5,7 @@ from discord.ext import commands
 class Register(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.client=amotor.AsyncIOMotorClient("mongodb+srv://akhil:akhilesh_2003@pubg-3d4bw.mongodb.net/test?retryWrites=true")
+        self.client=amotor.AsyncIOMotorClient("mongodb+srv://akhil:<password>@pubg-3d4bw.mongodb.net/test?retryWrites=true")
         self.db=self.client['pubg']
         self.collection=self.db['ids']
     @commands.command()
