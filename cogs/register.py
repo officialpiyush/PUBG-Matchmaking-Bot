@@ -9,7 +9,7 @@ class Register(commands.Cog):
     async def register(self,ctx,character_id:int,*,ingamename):
         user = ctx.message.author
         channel = self.bot.get_channel(568004553069428747)
-        config = (await self.collection.find_one({_id: str(user.id)}))["character_id"]
+        config = (await self.collection.find_one({"_id": str(user.id)}))["character_id"]
         if len(str(character_id)) == 9:
             if config is None:
                 await self.collection.insert_one({'_id':str(user.id),"character_id":str(character_id),"ingamename":ingamename})
