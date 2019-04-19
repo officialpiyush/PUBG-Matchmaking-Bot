@@ -6,7 +6,7 @@ import asyncio
 dbClient = amotor.AsyncIOMotorClient("mongodb+srv://akhil:<password>@pubg-3d4bw.mongodb.net/test?retryWrites=true")
 
 bot = commands.Bot(command_prefix='m!')
-bot.db=self.client['pubg']
+bot.db= dbClient.client['pubg']
 bot.remove_command('help')
 extensions = ['cogs.help','cogs.misc','cogs.register','cogs.error']
 for extension in extensions:
