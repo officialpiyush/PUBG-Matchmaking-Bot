@@ -1,19 +1,17 @@
 import discord
 import asyncio
-import motor.motor_asyncio as amotor
 from discord.ext import commands
 class Register(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.client=amotor.AsyncIOMotorClient("mongodb+srv://akhil:<password>@pubg-3d4bw.mongodb.net/test?retryWrites=true")
-        self.db=self.client['pubg']
-        self.collection=self.db['ids']
+        self.collection=bot.db['ids']
     @commands.command()
     async def register(self,ctx,character_id:int,*,ingamename):
         user = ctx.message.author
         channel = self.bot.get_channel(568004553069428747)
+        config = (await self.collection.find_one({"_id": str(user.id)}))["character_id"]
         if len(str(character_id)) == 9:
-            try:
+            if config is None:
                 await self.collection.insert_one({'_id':str(user.id),"character_id":str(character_id),"ingamename":ingamename})
                 await ctx.send('Successfully registered!!')
                 embed = discord.Embed(colour = discord.Colour.green())
@@ -24,7 +22,7 @@ class Register(commands.Cog):
                 await ctx.send(embed = embed)
                 await channel.send('New Registration!')
                 await channel.send(embed = embed)
-            except Exception as error:
+            else:
                 await self.collection.find_one_and_update({'_id':str(user.id)},{'$set':{'character_id':str(character_id),"ingamename":ingamename}})    
                 await ctx.send('Found existing data and successfully updated!!')
                 embed = discord.Embed(colour = discord.Colour.green())
